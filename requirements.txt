@@ -1,0 +1,7 @@
+# not pinned tight yet, just what I know I'll need. will lock versions once I actually start building
+pandas
+numpy
+scikit-learn
+scikit-surprise
+streamlit
+jupyter

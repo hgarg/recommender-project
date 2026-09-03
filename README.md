@@ -1,4 +1,4 @@
-# Adaptive Hybrid Recommender for E-Commerce Products
+# Hybrid Recommender for E-Commerce
 
 This repository contains the planning and implementation work for a capstone project on
 hybrid recommendation systems. The project investigates whether an adaptive combination
@@ -72,14 +72,8 @@ diversity-aware re-ranking to reduce the effect of popularity bias.
 ### Data preparation
 
 The dataset is shaped like an Amazon Electronics review dataset and is used for academic
-experimentation rather than production deployment. The current exploratory figures are:
-
-| Stage | Interactions | Users | Products | Sparsity |
-| --- | ---: | ---: | ---: | ---: |
-| Raw data | 67,967 | 5,000 | 1,988 | 99.32% |
-| Filtered sample | 56,417 | 1,754 | 756 | 95.75% |
-
-Because the full dataset is not practical to process in the current development
+experimentation rather than production deployment. Because the full dataset is not
+practical to process in the current development
 environment, the working sample would be constructed using activity-based stratification.
 This retains users and products across activity levels instead of applying an
 undifferentiated random cut. The sample also preserves the conditions relevant to the

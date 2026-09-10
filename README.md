@@ -40,9 +40,9 @@ for local experimentation while the remainder of the pipeline remains under acti
 
 The synthetic dataset is generated in `src/generate_synthetic_data.py` and is designed to
 approximate the statistical properties of a sparse e-commerce review dataset, including
-high sparsity, a strong positive rating skew, and long-tail product popularity. A brief
-summary of the data provenance and validation checks is recorded in `notes/data-origin.md`
-and `notes/design-notes.md`.
+high sparsity, a strong positive rating skew, and long-tail product popularity. The data
+provenance and generation rationale are documented in `notes/data-origin.md`, and the
+related design decisions are recorded in `notes/design-notes.md`.
 
 The adaptive recommendation rule is implemented in `src/blending.py`. This component
 adjusts the relative contribution of collaborative filtering and content-based filtering
@@ -106,9 +106,10 @@ cold-start analysis.
 
 Two characteristics require particular care during modelling:
 
-- 72.2% of ratings are four or five stars, indicating a strong positivity bias;
-- the most active five percent of products account for approximately 47.2% of all
-	interactions, indicating a substantial long-tail effect.
+- 72.1% of ratings are four or five stars in the current generated data, indicating a
+	strong positivity bias;
+- the most active five percent of products account for approximately 42.4% of all
+	interactions in the current generated data, indicating a substantial long-tail effect.
 
 For this reason, raw star ratings will not be treated as an unqualified measure of
 preference. Interaction weighting and diversity-aware analysis will be considered as
@@ -122,6 +123,7 @@ recommender-project/
 ├── data/
 │   ├── processed/          # Generated, cleaned data (not committed)
 │   └── raw/                # Source data (not committed)
+├── images/                 # Diagrams used in the design documentation
 ├── notebooks/              # Exploratory analysis and experiments
 ├── notes/                  # Project rationale, data notes, and methodology
 ├── src/                    # Reusable preprocessing and modelling code (planned)

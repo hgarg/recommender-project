@@ -31,6 +31,31 @@ The implementation and deployment stages are intentionally not represented as co
 while the project is still in planning. This status will be updated as each milestone is
 completed.
 
+## Current implementation status
+
+The project has progressed from the planning stage into an initial implementation phase.
+A reproducible synthetic dataset generator is now in place, and a first version of the
+adaptive blending rule has been implemented. These components provide a working foundation
+for local experimentation while the remainder of the pipeline remains under active development.
+
+The synthetic dataset is generated in `src/generate_synthetic_data.py` and is designed to
+approximate the statistical properties of a sparse e-commerce review dataset, including
+high sparsity, a strong positive rating skew, and long-tail product popularity. A brief
+summary of the data provenance and validation checks is recorded in `notes/data-origin.md`
+and `notes/design-notes.md`.
+
+The adaptive recommendation rule is implemented in `src/blending.py`. This component
+adjusts the relative contribution of collaborative filtering and content-based filtering
+according to user activity, allowing a stronger content-based signal for cold-start users
+and a stronger collaborative signal for users with more interaction history. At this
+stage, the implementation is intentionally lightweight and serves as a working prototype
+for evaluation rather than a final production design.
+
+The repository also includes preliminary project notes documenting the design rationale,
+baseline strategy, and validation criteria. The current implementation remains incomplete,
+and the preprocessing pipeline, final model training, and evaluation results will be added
+as the capstone progresses.
+
 ## Research question
 
 How does a hybrid recommender with an activity-dependent blending weight perform on a
@@ -121,8 +146,19 @@ pip install -r requirements.txt
 ```
 
 The dependency versions are not yet pinned. They will be recorded once the implementation
-environment is established. There is currently no executable application or test suite;
-the commands above prepare the environment for the implementation phase.
+environment is established. The dependency list currently reflects the libraries used in
+this phase, including `pandas`, `numpy`, `scikit-learn`, and `matplotlib`.
+
+The synthetic dataset can be regenerated from the project source folder:
+
+```bash
+cd src
+python generate_synthetic_data.py --out-dir ../data/raw --seed 42
+```
+
+This produces the local raw data files used for the current working sample. The generated
+files are not committed to the repository and can be replaced by changing the random seed
+or by updating the generation parameters.
 
 ## Ethics and limitations
 

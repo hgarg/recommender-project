@@ -51,6 +51,13 @@ and a stronger collaborative signal for users with more interaction history. At 
 stage, the implementation is intentionally lightweight and serves as a working prototype
 for evaluation rather than a final production design.
 
+The implementation work is now reflected in the repository through the synthetic data
+pipeline, the hybrid weighting function, and the exploratory notebook in `notebooks/`.
+This milestone focuses on making the design reproducible and testable locally, with the
+next stage centred on refinement of the preprocessing and evaluation workflow. The
+repository still retains earlier planning material for context, but the current codebase
+should be read as the active implementation stage of the project.
+
 The repository also includes preliminary project notes documenting the design rationale,
 baseline strategy, and validation criteria. The current implementation remains incomplete,
 and the preprocessing pipeline, final model training, and evaluation results will be added

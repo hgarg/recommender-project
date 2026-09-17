@@ -1,8 +1,14 @@
 # Dataset Notes
 
-This file records the main findings from the preliminary exploratory data analysis. The
-figures are working estimates until the preprocessing pipeline is formalised and rerun
-from the original source data.
+This file records the main findings from the preliminary exploratory data analysis and
+summarises the current implementation stage of the working dataset pipeline. The figures
+are working estimates until the preprocessing pipeline is formalised and rerun from the
+original source data.
+
+The project now uses a reproducible synthetic data generator as part of the active
+implementation workflow, rather than treating the dataset as a purely conceptual design
+artefact. This means the exploratory statistics are no longer only background analysis;
+they are also used to validate the generator and the downstream recommendation pipeline.
 
 ## Dataset profile
 

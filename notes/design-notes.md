@@ -14,7 +14,7 @@ The current formulation is a linear interpolation between two thresholds:
 
 This is simpler to explain and more transparent than a sigmoid or other nonlinear formulation. It also makes the threshold logic easier to reason about during implementation and evaluation. The values `n_min = 3` and `n_full = 20` were chosen heuristically rather than through tuning. They are not yet justified by empirical evaluation, so they should be treated as provisional design parameters rather than final model choices.
 
-The actual function is implemented in `src/blending.py`, since it is a small, self-contained component that does not require the rest of the pipeline to exist first. The rest of the source files are still placeholders or stubs at this stage.
+The actual function is implemented in `src/blending.py`, since it is a small, self-contained component that does not require the rest of the pipeline to exist first. The synthetic data generator in `src/generate_synthetic_data.py` and the implementation notebook in `notebooks/implementation.ipynb` now provide the working evidence that the design is being tested in practice. The rest of the source files remain lightweight at this stage, but the design is no longer purely conceptual.
 
 ## Baseline definition
 

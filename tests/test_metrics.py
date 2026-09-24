@@ -1,5 +1,7 @@
+import os
 import sys
-sys.path.append("../src")
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from metrics import precision_at_k, recall_at_k, ndcg_at_k
 
 

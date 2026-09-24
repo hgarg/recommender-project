@@ -6,3 +6,5 @@ scikit-surprise
 streamlit
 jupyter
 matplotlib
+pytest
+cryptography

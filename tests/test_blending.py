@@ -2,8 +2,10 @@
 # real - just want to know it behaves at the edges before trusting it in the
 # full pipeline
 
+import os
 import sys
-sys.path.append("../src")
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from blending import blend_weight
 
 

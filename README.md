@@ -34,9 +34,9 @@ sequence, with where each stage is now, is:
 	Status: done (`app/app.py`, which uses `src/recommender.py`).
 5. **Deployment:** package and deploy the application, document the runtime environment,
 	and verify that the deployed artefact behaves consistently with the evaluated system.
-	Status: partly done. The package versions are pinned and the app runs locally, and a
-	test checks that the app's model still gives the reported numbers. It is not hosted
-	anywhere yet.
+	Status: done. The app is deployed on Streamlit Community Cloud (see
+	[Deployed application](#deployed-application)), the package versions are pinned, and a
+	test checks that the app's model still gives the reported numbers.
 
 ## Progress log
 
@@ -251,6 +251,35 @@ cached. The app lets you pick a model, a customer (filtered by how much history 
 have) and K, and shows their past ratings next to the recommendations, with a flag for
 items they actually liked in the test period. There is also a tab with the test-set
 metrics.
+
+*Update:* the app was extended for the final submission with four tabs:
+
+- **Recommendations:** each recommended product now has a short "why recommended"
+  explanation based on how the selected model scores it (for example, the number of the
+  customer's 4-5 star products in the same category), so the results are transparent.
+- **Model performance:** test-set metrics for all models, with charts for ranking
+  accuracy, the accuracy-coverage trade-off and NDCG@10 by customer history. The model
+  selected in the sidebar is highlighted.
+- **About:** the purpose of the project, the data, the models compared, the evaluation
+  design, key findings and limitations.
+- **Help & contact:** a glossary of terms, frequently asked questions and contact
+  details.
+
+### Deployed application
+
+The app is deployed on Streamlit Community Cloud:
+
+**URL:** [https://recommender-project.streamlit.app](https://recommender-project.streamlit.app/)
+
+Access is protected by a simple password. The password is shared with the report
+submission.
+
+The deployed app uses the same code and data seed as the evaluation, and its "Model
+performance" tab shows the same test-set results as the [Main results](#main-results)
+table (final hybrid NDCG@10 = 0.1193).
+
+When the app is run locally without a password configured, it opens directly without the
+password screen.
 
 **Tests:**
 

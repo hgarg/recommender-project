@@ -1,10 +1,11 @@
-# not pinned tight yet, just what I know I'll need. will lock versions once I actually start building
-pandas
-numpy
-scikit-learn
-scikit-surprise
-streamlit
-jupyter
-matplotlib
-pytest
-cryptography
+numpy==2.0.2
+pandas==2.3.3
+scipy==1.13.1
+scikit-learn==1.6.1
+matplotlib==3.9.4
+cryptography==44.0.3
+streamlit==1.50.0
+
+# Notebook and test tooling
+jupyter==1.1.1
+pytest==8.4.2

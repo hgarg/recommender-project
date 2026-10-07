@@ -6,8 +6,13 @@ Run from the repo root:
 The data is the synthetic Amazon-Electronics-style dataset from
 src/pipeline.py (seed 42), so nothing needs to be downloaded. The first load
 trains all models (about 15-20 seconds); later loads use the cache.
+
+The deployed app asks for a password, which is read from the Streamlit
+secrets (`password = "..."`). If no password is set, for example when running
+locally without .streamlit/secrets.toml, the app opens without one.
 """
 
+import hmac
 import os
 import sys
 
@@ -28,6 +33,35 @@ from recommender import (  # noqa: E402
 )
 
 st.set_page_config(page_title="Hybrid Recommender", page_icon="🛒", layout="wide")
+
+
+def get_password():
+    """Password from the Streamlit secrets, or None if it is not set."""
+    try:
+        return st.secrets["password"]
+    except Exception:
+        return None
+
+
+def check_password():
+    """Show a password box until the correct password is entered."""
+    password = get_password()
+    if password is None or st.session_state.get("logged_in"):
+        return True
+
+    st.title("Hybrid Product Recommender")
+    entered = st.text_input("Password", type="password")
+    if entered:
+        if hmac.compare_digest(entered, password):
+            st.session_state["logged_in"] = True
+            st.rerun()
+        st.error("Incorrect password.")
+    return False
+
+
+# checked before the models are loaded, so nothing runs without the password
+if not check_password():
+    st.stop()
 
 
 @st.cache_resource(show_spinner="Training models (first load only)...")

@@ -14,3 +14,5 @@ data/processed/*
 *.enc
 *.docx
 *.pdf
+# streamlit secrets (app password), set in the Streamlit Cloud settings instead
+.streamlit/secrets.toml

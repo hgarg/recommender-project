@@ -9,7 +9,7 @@ import sys
 import pytest
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
-from recommender import build_models, recommend, evaluate_models, MODEL_NAMES
+from recommender import build_models, recommend, evaluate_models, explain, MODEL_NAMES, SVD_REASON
 
 
 @pytest.fixture(scope="module")
@@ -38,6 +38,29 @@ def test_scores_come_back_sorted(built):
     state, products, scores, pop = built
     _, rec_scores = recommend(scores["Final hybrid"], state, state["user_ids"][5], k=15)
     assert all(rec_scores[i] >= rec_scores[i + 1] for i in range(len(rec_scores) - 1))
+
+
+def test_explanations_match_customer_history(built):
+    state, products, scores, pop = built
+    user = state["user_ids"][0]
+    rec_ids, _ = recommend(scores["Final hybrid"], state, user, k=10)
+    pop_rank = {p: i + 1 for i, p in enumerate(state["prod_ids"])}
+    reasons = explain("Final hybrid", state, products, user, rec_ids, pop_rank)
+    assert len(reasons) == 10
+
+    # a category reason must name the product's category and a correct count
+    agg = state["train_agg"].merge(products, on="product_id")
+    liked = agg[(agg.user_id == user) & (agg.rating >= 4)]
+    cats = products.set_index("product_id").category
+    for p, reason in zip(rec_ids, reasons):
+        n = int((liked.category == cats[p]).sum())
+        if n:
+            assert reason.startswith(f"Same category ({cats[p]}) as {n} of your")
+        else:
+            assert reason == SVD_REASON
+
+    # SVD only never claims a content reason
+    assert set(explain("SVD only", state, products, user, rec_ids, pop_rank)) == {SVD_REASON}
 
 
 def test_final_numbers_match_report(built):

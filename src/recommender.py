@@ -81,6 +81,54 @@ def held_out_liked(state, user_id, split="test"):
     return set(df[(df.user_id == user_id) & (df.rating >= 4)].product_id)
 
 
+SVD_REASON = "Rated highly by customers with similar rating patterns"
+
+
+def _liked_text(n):
+    return f"{n} of your 4-5★ products"
+
+
+def explain(model_name, state, products, user_id, rec_ids, pop_rank):
+    """One short reason per recommended product.
+
+    The reasons follow how each model scores items. The content part of the
+    final hybrid only uses category, so its score is driven by how many of the
+    customer's 4+ rated products share the category, and SVD then orders the
+    products within that category. The 50/50 hybrid also uses price bucket.
+    """
+    liked = user_history(state, products, user_id)
+    liked = liked[liked.rating >= 4]
+    info = products.set_index("product_id")
+
+    reasons = []
+    for p in rec_ids:
+        cat, price = info.loc[p, "category"], info.loc[p, "price_bucket"]
+        n_cat = int((liked.category == cat).sum())
+        n_both = int(((liked.category == cat) & (liked.price_bucket == price)).sum())
+        n_price = int((liked.price_bucket == price).sum())
+
+        if model_name == "Most popular":
+            reason = f"One of the most-rated products overall (popularity rank {pop_rank[p]})"
+        elif model_name == "SVD only":
+            reason = SVD_REASON
+        elif model_name == "Fixed 50/50 hybrid":
+            if n_both:
+                reason = f"Same category and price range ({cat}, {price}) as {_liked_text(n_both)}"
+            elif n_cat:
+                reason = f"Same category ({cat}) as {_liked_text(n_cat)}"
+            elif n_price:
+                reason = f"Same price range ({price}) as {_liked_text(n_price)}"
+            else:
+                reason = SVD_REASON
+        else:  # final hybrid
+            if n_cat:
+                reason = f"Same category ({cat}) as {_liked_text(n_cat)}"
+            else:
+                reason = SVD_REASON
+        reasons.append(reason)
+    return reasons
+
+
 def evaluate_models(state, scores, split="test", k=10):
     """Mean precision/recall/NDCG and catalog coverage for each model."""
     rows = []

@@ -1,0 +1,7 @@
+# only what the app needs, for streamlit cloud (it reads this before the root one).
+# same versions as ../requirements.txt
+numpy==2.0.2
+pandas==2.3.3
+scipy==1.13.1
+scikit-learn==1.6.1
+streamlit==1.50.0

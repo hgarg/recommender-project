@@ -1,8 +1,8 @@
 """Helpers for trying small changes in the recommendation pipeline.
 
-This file is built for quick experiments. The idea is simple: keep the main
-pipeline in pipeline.py as the reference version, then rebuild one part at a
- time here to compare different settings.
+The main pipeline in pipeline.py is kept as the reference version. Each
+function here rebuilds one part of it so that alternative settings can be
+compared one at a time.
 """
 
 import time

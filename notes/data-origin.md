@@ -1,6 +1,6 @@
-# data-origin
+# Data Origin
 
-This dataset is synthetic, not a real Amazon dump. There are no actual user records or product rows in it. I made the generator in src/generate_synthetic_data.py to match the general shape of the Amazon Electronics reviews dataset described in the paper below:
+This dataset is synthetic rather than a copy of real Amazon data. There are no actual user records or product rows in it. I wrote the generator in src/generate_synthetic_data.py to match the general shape of the Amazon Electronics reviews dataset described in the paper below:
 
 McAuley, J., Targett, C., Shi, Q., & van den Hengel, A. (2015). Image-based recommendations on styles and substitutes. Proceedings of the 38th International ACM SIGIR Conference, 43-52.
 
@@ -8,7 +8,7 @@ I wanted something with a similar level of sparsity, a strong skew toward 4-5 st
 
 How it works:
 - products are assigned a category and a log-normal price
-- interactions are sampled using Zipf-style user activity and item popularity so a few products appear a lot and most are quite rare
+- interactions are sampled using Zipf-style user activity and item popularity so a few products appear frequently and most are rare
 - ratings are drawn from a tuned distribution to get around 72% positive ratings
 - duplicate rows happen naturally because sampling is done with replacement; I left them in on purpose because the preprocessing step is meant to clean them up
 
@@ -22,6 +22,6 @@ Results:
 - rating >= 4: 72.1% vs target 72.2%
 - top 5% item share: 42.4% vs target 47.2%
 
-Overall this is fairly close. The biggest mismatch is that the top products are a bit less concentrated than the target, but it is still good enough for a first pass. I would likely rerun it once the final dataset pipeline is fixed, instead of relying too much on one random seed.
+Overall, the result is close to the targets. The largest difference is that the top products are somewhat less concentrated than the target, which is acceptable for an initial version. I would likely rerun it once the final dataset pipeline is fixed, instead of relying too much on one random seed.
 
 One thing I still want to check later is the raw-vs-filtered comparison noted in the design writeup. That is separate from this generator check. This file only checks whether the generator is close to the target distribution, not whether the later filtering step changes the data in a problematic way.

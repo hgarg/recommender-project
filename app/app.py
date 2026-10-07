@@ -5,7 +5,7 @@ Run from the repo root:
 
 The data is the synthetic Amazon-Electronics-style dataset from
 src/pipeline.py (seed 42), so nothing needs to be downloaded. The first load
-trains everything (~15-20 s on my laptop), after that it's cached.
+trains all models (about 15-20 seconds); later loads use the cache.
 """
 
 import os
@@ -44,8 +44,8 @@ def load_metrics():
 state, products, scores, pop = load()
 n_hist = pd.Series(state["n_hist"], index=state["user_ids"])
 
-# only show customers that actually have liked items in the test period,
-# otherwise there's nothing to check the recommendations against
+# only customers with liked items in the test period are listed, since
+# otherwise the recommendations cannot be checked against held-out data
 test_liked_users = sorted(state["test"][state["test"].rating >= 4].user_id.unique())
 
 # ---------------- sidebar ----------------
@@ -100,7 +100,7 @@ with tab_rec:
     left, right = st.columns([1, 1.4])
 
     with left:
-        st.subheader("What they rated before")
+        st.subheader("Rating history (training period)")
         st.dataframe(
             hist[["product_id", "category", "price_bucket", "rating"]],
             hide_index=True,

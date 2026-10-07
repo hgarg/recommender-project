@@ -1,5 +1,6 @@
-# tests for the refinement helpers. mainly checking the floor fix behaves at
-# the edges and that the faster top-k gives the same lists as the old one.
+# tests for the refinement helpers, mainly that the weight floor behaves
+# correctly at the boundaries and that the faster top-k returns the same lists
+# as the original version.
 
 import os
 import sys
@@ -23,7 +24,7 @@ def test_floor_zero_matches_original_rule():
 def test_floor_lifts_cold_users_only():
     n = np.array([1, 3, 8, 30])
     w = adaptive_weight(n, n_min=3, n_full=8, w_floor=0.5)
-    assert w[0] == 0.5 and w[1] == 0.5  # cold users keep half CF now
+    assert w[0] == 0.5 and w[1] == 0.5  # low-history users now keep half of the CF weight
     assert w[2] == 1 and w[3] == 1      # warm users unchanged
 
 

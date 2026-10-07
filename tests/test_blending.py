@@ -1,6 +1,5 @@
-# quick tests for the cold-start weighting fn before wiring it into anything
-# real - just want to know it behaves at the edges before trusting it in the
-# full pipeline
+# tests for the cold-start weighting function, checking its behaviour at the
+# boundaries before it is used in the full pipeline
 
 import os
 import sys
@@ -11,16 +10,16 @@ from blending import blend_weight
 
 def test_below_min_is_zero():
     assert blend_weight(0)[0] == 0
-    assert blend_weight(3)[0] == 0  # right at n_min, should still floor to 0
+    assert blend_weight(3)[0] == 0  # exactly at n_min the weight should still be 0
 
 
 def test_above_full_is_one():
     assert blend_weight(20)[0] == 1
-    assert blend_weight(50)[0] == 1  # way past n_full, still capped at 1
+    assert blend_weight(50)[0] == 1  # well beyond n_full the weight is capped at 1
 
 
 def test_midpoint():
-    # halfway between n_min=3 and n_full=20 should land close to 0.5
+    # halfway between n_min=3 and n_full=20 the weight should be close to 0.5
     mid = (3 + 20) / 2
     cf, _ = blend_weight(mid)
     assert abs(cf - 0.5) < 0.01

@@ -12,7 +12,7 @@ def test_pseudonymize_is_stable_and_hides_raw_id():
     a = pseudonymize(["U00042"], key)[0]
     b = pseudonymize(["U00042"], key)[0]
     assert a == b                      # same key -> same token, joins still work
-    assert "00042" not in a            # raw id doesn't leak into the token
+    assert "00042" not in a            # raw id does not appear in the token
 
 
 def test_different_keys_give_different_tokens():
@@ -24,7 +24,7 @@ def test_manifest_catches_edited_file(tmp_path):
     f.write_text("user_id,product_id,rating\nU1,P1,5\n")
     write_manifest([str(f)], str(tmp_path / "m.json"))
     assert verify_manifest([str(f)], str(tmp_path / "m.json"))["events.csv"]
-    f.write_text("user_id,product_id,rating\nU1,P1,1\n")   # someone "fixes" a rating
+    f.write_text("user_id,product_id,rating\nU1,P1,1\n")   # simulate an unrecorded change to a rating
     assert not verify_manifest([str(f)], str(tmp_path / "m.json"))["events.csv"]
 
 

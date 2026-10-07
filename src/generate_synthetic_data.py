@@ -147,4 +147,4 @@ if __name__ == "__main__":
     products.to_csv(os.path.join(args.out_dir, "products.csv"), index=False)
 
     summarize(events, products)
-    print("done, wrote to", args.out_dir)
+    print("files written to", args.out_dir)

@@ -1,7 +1,7 @@
-# tests for the final model wrapper the app uses.
-# building the models takes ~15s so it's done once for the whole file.
-# the last test is a regression check, if the final NDCG moves something in
-# the pipeline changed and the report numbers would be out of date
+# tests for the final model wrapper used by the app.
+# building the models takes about 15 s, so it is done once for the whole file.
+# the last test is a regression check: if the final NDCG changes, something in
+# the pipeline has changed and the reported numbers would be out of date.
 
 import os
 import sys

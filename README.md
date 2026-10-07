@@ -100,13 +100,13 @@ All numbers are on the held-out test set (time-based split), K = 10.
 
 - The final model beats both SVD and the starting 50/50 blend (paired Wilcoxon, p < .001)
   and was better on all five data seeds I tried.
-- My original adaptive hybrid did **not** work. It gave customers with 3 or fewer
+- The original adaptive hybrid did **not** perform as intended. It gave customers with 3 or fewer
   interactions zero SVD weight, and for customers with 1-2 interactions it scored close to
   random. SVD still had a useful signal for them (mostly their favourite category), so
   turning it off made things worse. The final model keeps SVD for everyone.
 - The biggest single improvement came from removing price bucket from the content
   features. That is probably a property of the synthetic data (price isn't really a
-  preference signal in the generator), so I wouldn't assume it holds on real data.
+  preference signal in the generator), so it should not be assumed to hold on real data.
 - There is still a trade-off: the final model covers less of the catalog than the 50/50
   blend.
 

@@ -80,9 +80,9 @@ based on the approach described by Ramos (2003).
 
 ## Ethics and responsible use
 
-The source data is public and is being used for academic experimentation rather than as
-live customer data. Its provenance and licensing conditions will be recorded as the
-project develops, and working copies will remain within the project environment.
+The data is synthetic, generated locally for academic experimentation, and does not
+contain live customer data. Its provenance is recorded in `data-origin.md`, and working
+copies remain within the project environment.
 
 An extension using identifiable customer data would require a clear legal basis,
 appropriate retention limits, a deletion process, and a privacy review under applicable

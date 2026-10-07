@@ -45,7 +45,7 @@ I also implemented a synthetic data generator in `src/generate_synthetic_data.py
 
 The first pass of the generator was too aggressive in its popularity skew. The top 5% of products accounted for more than 70% of all interactions, which was far above the target. After adjusting the Zipf-style weighting, the distribution moved much closer to the desired range. With seed 42, the final run produced a top 5% share of around 42%, compared with the target of roughly 47% from the earlier exploratory analysis.
 
-This is close enough for the current stage of the project, and it is not worth spending additional time tuning the generator to an exact value unless the final model evaluation suggests that the mismatch materially affects performance. In contrast, the positivity rate and sparsity landed close to the target in the first realistic pass, which was encouraging.
+This is close enough for the current stage of the project, and additional time spent tuning the generator is not justified to an exact value unless the final model evaluation suggests that the mismatch materially affects performance. In contrast, the positivity rate and sparsity landed close to the target in the first realistic pass, which was encouraging.
 
 ## Practical next steps
 

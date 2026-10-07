@@ -1,7 +1,7 @@
 """Final recommender used by the Streamlit app.
 
-This puts the final model from the refinement notebook in one place so the
-app doesn't have to re-run the notebook. Settings are the ones picked on the
+This module collects the final model from the refinement notebook in one
+place, so the app does not need to re-run the notebook. Settings are the ones picked on the
 validation set in advanced_analysis_refinement_final.ipynb:
 
 - SVD on raw ratings, 12 factors
@@ -36,7 +36,7 @@ MODEL_NAMES = ["Final hybrid", "SVD only", "Fixed 50/50 hybrid", "Most popular"]
 
 
 def build_models(seed=42, alpha=FINAL_ALPHA, lam=FINAL_LAMBDA, k=SVD_FACTORS):
-    """Generate the data, train everything once and return what the app needs."""
+    """Generate the data, train all models once, and return the objects the app uses."""
     events, products = make_data(seed=seed)
     state = run_pipeline(events, products, k=k, n_full=8)
 

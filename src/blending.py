@@ -1,5 +1,5 @@
-# simple blending rule: more past interactions => more weight on collaborative
-# filtering. below n_min = content only, above n_full = CF only.
+# linear blending rule: more past interactions give more weight to collaborative
+# filtering. at or below n_min the score is content-only, at or above n_full it is CF-only.
 
 
 def blend_weight(n_u, n_min=3, n_full=20):
@@ -18,7 +18,7 @@ def blend_weight(n_u, n_min=3, n_full=20):
 
 
 if __name__ == "__main__":
-    # quick sanity check
+    # sanity check of the weights at selected history lengths
     for n in [0, 1, 3, 5, 10, 12, 15, 20, 25, 40]:
         cf, content = blend_weight(n)
         print(f"n_u={n}  w_cf={cf:.3f}  w_content={content:.3f}")
